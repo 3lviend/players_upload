@@ -27,9 +27,9 @@ class ImagesController < ApplicationController
         end
       end
       if @failed.present?
-        format.html { redirect_to images_url, alert: @failed, notice: success }
+        format.html { redirect_to play_random_path, alert: @failed, notice: success }
       else
-        format.html { redirect_to images_url, notice: 'Images was successfully uploaded.' }
+        format.html { redirect_to play_random_path, notice: 'Images was successfully uploaded.' }
       end
     end
   end
@@ -41,6 +41,18 @@ class ImagesController < ApplicationController
     respond_to do |format|
       format.html { redirect_to images_url, notice: 'Image was successfully destroyed.' }
       format.json { head :no_content }
+    end
+  end
+
+  def play_random
+    size       = rand(1..10)
+    @images    = Image.all.map{ |p| [p.file.url, p.id] }.sample(size)
+    @plays     = Play.all.order(created_at: :desc)
+    @new_array = @images
+    multiple   = 10 / @images.size
+
+    (@images * multiple).each do |a|
+      @new_array << a if (@new_array.size < 10)
     end
   end
 

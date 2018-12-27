@@ -1,0 +1,92 @@
+<% if notice.class.eql?(Array) && notice.count > 0%>
+  <div id="error_explanation" class="green">
+    <h2><%= pluralize(notice.count, "image") %> uploaded:</h2>
+
+    <ul>
+    <% notice.each do |message| %>
+      <li id="alert"><%= message %></li>
+    <% end %>
+    </ul>
+  </div>
+<% elsif notice.class.eql?(String) %>
+  <p id="notice"><%= notice %></p>
+<% end %>
+
+<% if alert %>
+  <div id="error_explanation">
+    <h2><%= pluralize(alert.count, "error") %> prohibited this image from being saved:</h2>
+
+    <ul>
+    <% alert.each do |message| %>
+      <li id="alert"><%= message %></li>
+    <% end %>
+    </ul>
+  </div>
+<% end %>
+<div style="height: 200px;">
+  <h1 id="progressBar"></h1>
+  <img id="images_id" style="height: 100px; width: : auto;"></img>
+  <br>
+  <button id="buttonPlay" data-index="" onclick="clickPlay(event)">SELECT</button>
+</div>
+<hr>
+<div>
+  <table>
+    <thead>
+      <tr>
+        <th width="50px">Time</th>
+        <th width="250px">Image</th>
+      </tr>
+    </thead>
+    <tbody id="lists_image">
+      <% @plays.each do |p| %>
+        <tr>
+          <td><%= p.second %></td>
+          <td><%= p.image.file.url %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+<hr>
+<%= link_to 'Upload', new_image_path %>
+<script>
+  var timeleft = 0;
+  var array = <%= raw @new_array.to_json %>;
+
+  var downloadTimer = setInterval(function(){
+    document.getElementById("progressBar").innerHTML = (11 - ++timeleft) + 's';
+    document.getElementById("images_id").src = array[timeleft - 1][0];
+    document.getElementById("buttonPlay").dataset.index = timeleft - 1;
+    if(timeleft == 10){
+      timeleft = 0
+    }
+  },1000);
+
+  function clickPlay(event){
+    var image_id = array[event.target.dataset.index][1]
+    var image_url = array[event.target.dataset.index][0]
+    var second = 10 - event.target.dataset.index
+    var data = {image_url: image_url, second: second}
+
+    var r = new XMLHttpRequest();
+    r.onreadystatechange = function() {
+      if (r.readyState === 4) {
+          if (r.status === 200) {
+             addNewRow(data)
+          } else {
+             alert(r.responseText);
+          }
+      }
+    },
+    r.open("POST", "/plays?play[image_id]=" + image_id + "&play[second]=" + second, true);
+    r.send();
+
+    return r;
+  }
+
+  function addNewRow(data){
+    var element = document.getElementById("lists_image")
+    element.innerHTML = "<tr><td>" + data['second'] + "</td><td>" + data['image_url'] + "</td></tr>" + element.innerHTML
+  }
+</script>
