@@ -1,5 +1,29 @@
 <div class="wrapper">
-  <p id="notice"><%= notice %></p>
+  <% if notice.class.eql?(Array) && notice.count > 0%>
+    <div id="error_explanation" class="green">
+      <h2><%= pluralize(notice.count, "image") %> uploaded:</h2>
+
+      <ul>
+      <% notice.each do |message| %>
+        <li id="alert"><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% elsif notice.class.eql?(String) %>
+    <p id="notice"><%= notice %></p>
+  <% end %>
+
+  <% if alert %>
+    <div id="error_explanation">
+      <h2><%= pluralize(alert.count, "error") %> prohibited this image from being saved:</h2>
+
+      <ul>
+      <% alert.each do |message| %>
+        <li id="alert"><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
   
   <div>
     <h1 class="title d-inline">Images</h1> 
@@ -18,9 +42,7 @@
       <% @images.each do |image| %>
         <tr>
           <td>
-            <% image.files.each do |file| %>
-              <%= image_tag(file, width: '100px') %>
-            <% end %>
+            <%= image_tag(image.file, width: '100px') %>
           </td>
           <td><%= link_to 'Destroy', image, method: :delete, data: { confirm: 'Are you sure?' } %></td>
         </tr>

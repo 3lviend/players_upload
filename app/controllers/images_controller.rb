@@ -15,15 +15,21 @@ class ImagesController < ApplicationController
   # POST /images
   # POST /images.json
   def create
-    @image = Image.new(image_params)
-
+    success, @failed = [], []
     respond_to do |format|
-      if @image.save
-        format.html { redirect_to images_url, notice: 'Image was successfully created.' }
-        format.json { render :index, status: :created, location: @image }
+      image_params[:files].each do |p|
+        @image = Image.new(file: p)
+        if @image.save
+          success << "#{p.original_filename} was successfully uploaded"
+        else
+          @failed << "#{p.original_filename}: #{@image.errors.messages.values.flatten.to_sentence}"
+
+        end
+      end
+      if @failed.present?
+        format.html { redirect_to images_url, alert: @failed, notice: success }
       else
-        format.html { render :new }
-        format.json { render json: @image.errors, status: :unprocessable_entity }
+        format.html { redirect_to images_url, notice: 'Images was successfully uploaded.' }
       end
     end
   end
@@ -46,6 +52,6 @@ class ImagesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def image_params
-      params.require(:image).permit({files: []})
+      params.require(:image).permit({files: []}, :file)
     end
 end
