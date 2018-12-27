@@ -32,17 +32,50 @@ a {
   }
 }
 
+table, th, td {
+  border: 1px solid #000;
+}
+thead{
+  text-align: left;
+}
+
 th {
-  padding-bottom: 5px;
+  padding: 10px
 }
 
 td {
-  padding: 0 5px 7px;
+  padding: 10px;
 }
 
 div {
-  &.field, &.actions {
-    margin-bottom: 10px;
+  &.field {
+    margin-bottom: 25px;
+    margin-left: 25px;
+  }
+  &.actions {
+    margin-bottom: 0;
+    margin-top: 30px;
+
+    input {
+      margin-right: 5px;
+    }
+  }
+  &.wrapper {
+    max-width: 40%;
+
+    div {
+      display: inline-block;
+      width: 100%;
+
+      h1 {
+        float: left;
+        margin-top: 0;
+      }
+
+      a {
+        float: right;
+      } 
+    }
   }
 }
 
@@ -79,6 +112,26 @@ div {
   }
 }
 
+#error_explanation.green {
+  border-color: #8bc34a;
+
+  h2 {
+    background-color: #8bc34a; 
+  }
+}
+
 label {
   display: block;
+}
+
+.label_for_image {
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+h1.title {
+  margin-bottom: 25px;
+}
+.d-inline {
+  display: inline-block;
 }
