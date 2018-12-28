@@ -47,8 +47,8 @@
       <tbody id="lists_image">
         <% @plays.each do |p| %>
           <tr>
-            <td><%= p.second %></td>
-            <td><%= p.image.file.url %></td>
+            <td class='center'><%= p.second %></td>
+            <td class='center'><%= image_tag(p.image.file.url, style: "max-height: 100px;") %></td>
           </tr>
         <% end %>
       </tbody>
@@ -92,7 +92,7 @@
 
     function addNewRow(data){
       var element = document.getElementById("lists_image")
-      element.innerHTML = "<tr><td>" + data['second'] + "</td><td>" + data['image_url'] + "</td></tr>" + element.innerHTML
+      element.innerHTML = "<tr><td class='center'>" + data['second'] + "</td><td class='center'><img style='max-height: 100px;'' src='" + data['image_url'] + "'></img></td></tr>" + element.innerHTML
     }
   </script>
 </div>
