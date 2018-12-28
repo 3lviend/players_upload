@@ -1,3 +1,6 @@
+// --> Global CSS
+* { box-sizing: border-box; }
+
 body {
   background-color: #fff;
   color: #333;
@@ -5,6 +8,29 @@ body {
   font-family: verdana, arial, helvetica, sans-serif;
   font-size: 13px;
   line-height: 18px;
+}
+
+table, th, td { border: 1px solid #000; }
+thead { text-align: center; }
+tbody { text-align: left; }
+th, td { padding: 10px; }
+.d-inline { display: inline-block; }
+
+h1 {
+  margin-top: 0;
+
+  h1.title {
+    margin-bottom: 25px;
+  }
+}
+
+label { 
+  display: block;
+
+  &.label_for_image {
+    font-weight: bold;
+    margin-bottom: 5px;
+  }
 }
 
 p, ol, ul, td {
@@ -32,26 +58,13 @@ a {
   }
 }
 
-table, th, td {
-  border: 1px solid #000;
-}
-thead{
-  text-align: left;
-}
-
-th {
-  padding: 10px
-}
-
-td {
-  padding: 10px;
-}
-
+// --> Content
 div {
   &.field {
     margin-bottom: 25px;
     margin-left: 25px;
   }
+
   &.actions {
     margin-bottom: 0;
     margin-top: 30px;
@@ -60,21 +73,63 @@ div {
       margin-right: 5px;
     }
   }
+
   &.wrapper {
-    max-width: 40%;
+    max-width: 100%;
+    text-align: center;
+
+    .image-wrapper {
+      padding: 20px;
+      border: 2px solid #dddddd;
+      width: auto;
+      min-height: 300px;
+      min-width: 350px;
+      margin: 5px 0 15px 0;
+
+      img#images_id {
+        height: 300px;
+        width: auto;
+        max-width: 100%;
+      }      
+    }
 
     div {
       display: inline-block;
       width: 100%;
 
-      h1 {
-        float: left;
-        margin-top: 0;
+      &.select-image {
+        min-height: 200px;
+
+        #buttonPlay {
+          display: block;
+          margin: auto;
+        }
       }
 
-      a {
-        float: right;
-      } 
+      &.table-wrapper {
+        padding: 30px 20px; 
+        border-top: 2px solid #dddddd;
+        border-bottom: 2px solid #dddddd;
+        margin-top: 40px;
+
+        table {
+          width: 70%;
+          margin: auto;
+        }
+
+        .float-left {
+          text-align: left;
+          font-size: 15px;
+          font-weight: 600;
+          width: 70%;
+          margin: auto;
+          padding-bottom: 10px;
+
+          a {
+             margin-left: 15px; 
+          }
+        }
+      }
     }
   }
 }
@@ -96,6 +151,14 @@ div {
   margin-bottom: 20px;
   background-color: #f0f0f0;
 
+  &.green {
+    border-color: #8bc34a;
+
+    h2 {
+      background-color: #8bc34a; 
+    }
+  }
+
   h2 {
     text-align: left;
     font-weight: bold;
@@ -110,28 +173,4 @@ div {
     font-size: 12px;
     list-style: square;
   }
-}
-
-#error_explanation.green {
-  border-color: #8bc34a;
-
-  h2 {
-    background-color: #8bc34a; 
-  }
-}
-
-label {
-  display: block;
-}
-
-.label_for_image {
-  font-weight: bold;
-  margin-bottom: 5px;
-}
-
-h1.title {
-  margin-bottom: 25px;
-}
-.d-inline {
-  display: inline-block;
 }
