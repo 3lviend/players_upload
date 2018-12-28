@@ -24,7 +24,7 @@
   </div>
 <% end %>
 <div style="height: 200px;">
-  <h1 id="progressBar"></h1>
+  <h1 id="progressBar">Please wait...</h1>
   <img id="images_id" style="height: 100px; width: : auto;"></img>
   <br>
   <button id="buttonPlay" data-index="" onclick="clickPlay(event)">SELECT</button>
@@ -49,7 +49,7 @@
   </table>
 </div>
 <hr>
-<%= link_to 'Upload', new_image_path %>
+<%= link_to 'Upload New Image', new_image_path %>
 <script>
   var timeleft = 0;
   var array = <%= raw @new_array.to_json %>;

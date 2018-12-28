@@ -13,11 +13,10 @@
 
   <div class="field">
     <%= form.label :files, "Images", class: "label_for_image" %>
-    <%= form.file_field :files, multiple: true %>
+    <%= form.file_field :files, multiple: true, required: true %>
   </div>
 
   <div class="actions">
     <%= form.submit %>
-    <%= link_to 'Back', images_path %>
   </div>
 <% end %>
